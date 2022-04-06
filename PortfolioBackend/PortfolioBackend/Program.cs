@@ -1,7 +1,9 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using PortfolioBackend.Models;
+using PortfolioBackend.Models.Interfaces;
 using PortfolioBackend.Services;
+using PortfolioBackend.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,9 @@ builder.Services.AddSingleton<IPortfolioDatabaseSettings>(sp =>
 builder.Services.AddSingleton<IMongoClient>(s =>
         new MongoClient(builder.Configuration.GetValue<string>("PortfolioDatabaseSettings:ConnectionString")));
 
-builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
+builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

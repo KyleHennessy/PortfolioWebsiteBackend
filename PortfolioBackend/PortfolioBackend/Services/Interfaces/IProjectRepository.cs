@@ -1,8 +1,8 @@
 ﻿using PortfolioBackend.Models;
 
-namespace PortfolioBackend.Services
+namespace PortfolioBackend.Services.Interfaces
 {
-    public interface IProjectService
+    public interface IProjectRepository
     {
         List<Project> Get();
         Project Get(string id);

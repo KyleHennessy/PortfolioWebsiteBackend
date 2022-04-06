@@ -1,13 +1,16 @@
-﻿using PortfolioBackend.Models;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
+using PortfolioBackend.Models;
+using PortfolioBackend.Models.Interfaces;
+using PortfolioBackend.Services.Interfaces;
+
 
 namespace PortfolioBackend.Services
 {
-    public class ProjectService : IProjectService
+    public class ProjectRepository : IProjectRepository
     {
         private readonly IMongoCollection<Project> _projects;
 
-        public ProjectService(IPortfolioDatabaseSettings settings, IMongoClient mongoClient)
+        public ProjectRepository(IPortfolioDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _projects = database.GetCollection<Project>(settings.PortfolioProjectsCollectionName);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortfolioBackend.Models;
 using PortfolioBackend.Services;
+using PortfolioBackend.Services.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,9 +11,9 @@ namespace PortfolioBackend.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectService projectService;
+        private readonly IProjectRepository projectService;
 
-        public ProjectsController(IProjectService projectService)
+        public ProjectsController(IProjectRepository projectService)
         {
             this.projectService = projectService;
         }

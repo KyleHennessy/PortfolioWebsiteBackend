@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace PortfolioBackend.Models
 {
-    public class Project
+    public class Skill
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
@@ -11,14 +11,5 @@ namespace PortfolioBackend.Models
 
         [BsonElement("title")]
         public string Title { get; set; } = string.Empty;
-
-        [BsonElement("description")]
-        public string Description { get; set; } = string.Empty;
-
-        [BsonElement("thumbnailUrl")]
-        public string ThumbnailUrl { get; set; } = string.Empty;
-
-        public List<Skill> SkillsUsed { get; set; } = new List<Skill>();
-
     }
 }
