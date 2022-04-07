@@ -10,24 +10,24 @@ namespace PortfolioBackend.Controllers
     [ApiController]
     public class SkillsController : ControllerBase
     {
-        private readonly ISkillRepository skillRepository;
+        private readonly ISkillRepository _skillRepository;
 
         public SkillsController(ISkillRepository skillRepository)
         {
-            this.skillRepository = skillRepository;
+            _skillRepository = skillRepository;
         }
         // GET: api/<SkillsController>
         [HttpGet]
         public ActionResult<List<Skill>> Get()
         {
-            return skillRepository.Get();
+            return _skillRepository.Get();
         }
 
         // GET api/<SkillsController>/5
         [HttpGet("{id}")]
         public ActionResult<Skill> Get(string id)
         {
-            var skill = skillRepository.Get(id);
+            var skill = _skillRepository.Get(id);
 
             if(skill == null)
             {
@@ -41,7 +41,7 @@ namespace PortfolioBackend.Controllers
         [HttpPost]
         public ActionResult<Skill> Post([FromBody] Skill skill)
         {
-            skillRepository.Create(skill);
+            _skillRepository.Create(skill);
 
             return CreatedAtAction(nameof(Get), new { id = skill.Id }, skill);
         }
@@ -50,14 +50,14 @@ namespace PortfolioBackend.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(string id, [FromBody] Skill skill)
         {
-            var existingSkill= skillRepository.Get(id);
+            var existingSkill= _skillRepository.Get(id);
 
             if(existingSkill == null)
             {
                 return NotFound($"Skill with Id = {id} not found");
             }
 
-            skillRepository.Update(id, skill);
+            _skillRepository.Update(id, skill);
 
             return NoContent();
         }
@@ -66,14 +66,14 @@ namespace PortfolioBackend.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var skill = skillRepository.Get(id);
+            var skill = _skillRepository.Get(id);
 
             if(skill == null)
             {
                 return NotFound($"Skill with Id = {id} not found");
             }
 
-            skillRepository.Delete(skill.Id);
+            _skillRepository.Delete(skill.Id);
 
             return Ok($"Skill with Id = {id} deleted");
         }

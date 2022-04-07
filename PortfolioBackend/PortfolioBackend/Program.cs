@@ -24,6 +24,8 @@ builder.Services.AddScoped<ISkillRepository, SkillRepository>();
 
 builder.Services.AddScoped<IWorkExperienceRepository, WorkExperienceRepository>();
 
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

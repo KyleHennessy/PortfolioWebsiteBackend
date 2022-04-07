@@ -11,24 +11,24 @@ namespace PortfolioBackend.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectRepository projectService;
+        private readonly IProjectRepository _projectRepository;
 
         public ProjectsController(IProjectRepository projectService)
         {
-            this.projectService = projectService;
+            _projectRepository = projectService;
         }
         // GET: api/<ProjectsController>
         [HttpGet]
         public ActionResult<List<Project>> Get()
         {
-            return projectService.Get();
+            return _projectRepository.Get();
         }
 
         // GET api/<ProjectsController>/5
         [HttpGet("{id}")]
         public ActionResult<Project> Get(string id)
         {
-            var project = projectService.Get(id);
+            var project = _projectRepository.Get(id);
 
             if(project == null)
             {
@@ -42,7 +42,7 @@ namespace PortfolioBackend.Controllers
         [HttpPost]
         public ActionResult<Project> Post([FromBody] Project project)
         {
-            projectService.Create(project);
+            _projectRepository.Create(project);
 
             return CreatedAtAction(nameof(Get), new { id = project.Id }, project);
         }
@@ -51,14 +51,14 @@ namespace PortfolioBackend.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(string id, [FromBody] Project project)
         {
-            var existingProject = projectService.Get(id);
+            var existingProject = _projectRepository.Get(id);
 
             if(existingProject == null)
             {
                 return NotFound($"Project with Id = {id} not found");
             }
 
-            projectService.Update(id, project);
+            _projectRepository.Update(id, project);
 
             return NoContent();
         }
@@ -67,14 +67,14 @@ namespace PortfolioBackend.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
-            var project = projectService.Get(id);
+            var project = _projectRepository.Get(id);
 
             if(project == null)
             {
                 return NotFound($"Project with Id = {id} not found");
             }
 
-            projectService.Delete(project.Id);
+            _projectRepository.Delete(project.Id);
 
             return Ok($"Project with Id = {id} deleted");
         }
