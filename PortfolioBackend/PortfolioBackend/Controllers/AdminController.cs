@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioBackend.Models;
 using PortfolioBackend.Services.Interfaces;
 
@@ -6,6 +7,7 @@ using PortfolioBackend.Services.Interfaces;
 
 namespace PortfolioBackend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminController : ControllerBase
@@ -29,6 +31,20 @@ namespace PortfolioBackend.Controllers
             }
 
             return admin;
+        }
+
+
+
+        public ActionResult Login([FromBody] LoginModel login)
+        {
+            var token = _adminRepository.Autheticate(login.Email, login.Password);
+
+            if(token == null)
+            {
+                return Unauthorized();
+            }
+
+            return Ok(new {token, login});
         }
 
     }

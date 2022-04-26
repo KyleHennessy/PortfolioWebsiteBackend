@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioBackend.Models;
 using PortfolioBackend.Services;
 using PortfolioBackend.Services.Interfaces;
@@ -7,6 +8,7 @@ using PortfolioBackend.Services.Interfaces;
 
 namespace PortfolioBackend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
@@ -18,6 +20,7 @@ namespace PortfolioBackend.Controllers
             _projectRepository = projectService;
         }
         // GET: api/<ProjectsController>
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<List<Project>> Get()
         {
@@ -25,6 +28,7 @@ namespace PortfolioBackend.Controllers
         }
 
         // GET api/<ProjectsController>/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public ActionResult<Project> Get(string id)
         {
