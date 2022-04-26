@@ -34,7 +34,8 @@ namespace PortfolioBackend.Controllers
         }
 
 
-
+        [AllowAnonymous]
+        [HttpPost]
         public ActionResult Login([FromBody] LoginModel login)
         {
             var token = _adminRepository.Autheticate(login.Email, login.Password);
