@@ -40,6 +40,7 @@ namespace PortfolioBackend.Services
 
             var tokenKey = Encoding.ASCII.GetBytes(key);
 
+            #pragma warning disable CS8604 // Possible null reference argument.
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -54,6 +55,7 @@ namespace PortfolioBackend.Services
                         SecurityAlgorithms.HmacSha256Signature
                     )
             };
+            #pragma warning restore CS8604 // Possible null reference argument.
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 

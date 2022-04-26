@@ -51,8 +51,8 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetValue<string>("JWT:Secret").ToString())),
-        ValidateIssuer = true,
-        ValidateAudience = true
+        ValidateIssuer = false,
+        ValidateAudience = false
     };
 });
 

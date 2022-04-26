@@ -35,6 +35,7 @@ namespace PortfolioBackend.Controllers
 
 
         [AllowAnonymous]
+        [Route("authenticate")]
         [HttpPost]
         public ActionResult Login([FromBody] LoginModel login)
         {
