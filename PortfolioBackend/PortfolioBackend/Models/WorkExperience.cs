@@ -21,6 +21,6 @@ namespace PortfolioBackend.Models
         [BsonElement("dateEnded")]
         public DateTime? DateEnded { get; set; }
 
-        public List<Skill> SkillUsed { get; set; } = new List<Skill>();
+        public List<Skill> SkillsUsed { get; set; } = new List<Skill>();
     }
 }
