@@ -27,7 +27,7 @@ namespace PortfolioBackend.Services
             return _admin.Find(admin => admin.Id == id).FirstOrDefault();
         }
 
-        public string? Autheticate(string? email, string? password)
+        public Dictionary<string, string>? Autheticate(string? email, string? password)
         {
             var admin = _admin.Find(admin => admin.Email == email && admin.Password == password).FirstOrDefault();
 
@@ -48,7 +48,7 @@ namespace PortfolioBackend.Services
                     new Claim(ClaimTypes.Email, email)
                 }),
 
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.Now.AddMinutes(10),
 
                 SigningCredentials = new SigningCredentials (
                         new SymmetricSecurityKey(tokenKey),
@@ -58,8 +58,15 @@ namespace PortfolioBackend.Services
             #pragma warning restore CS8604 // Possible null reference argument.
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            DateTime expires = (DateTime)tokenDescriptor.Expires;
 
-            return tokenHandler.WriteToken(token);
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            result.Add("token", tokenHandler.WriteToken(token));
+            #pragma warning disable CS8604 // Possible null reference argument.
+            result.Add("expires", expires.ToString("yyyy-MM-ddTHH:mm:ss"));
+            #pragma warning restore CS8604 // Possible null reference argument.
+
+            return result;
         }
     }
 }

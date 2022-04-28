@@ -6,6 +6,6 @@ namespace PortfolioBackend.Services.Interfaces
     {
         Admin Get(string id);
 
-        string? Autheticate(string? email, string? password);
+        Dictionary<string, string>? Autheticate(string? email, string? password);
     }
 }

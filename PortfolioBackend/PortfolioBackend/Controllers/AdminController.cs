@@ -39,14 +39,19 @@ namespace PortfolioBackend.Controllers
         [HttpPost]
         public ActionResult Login([FromBody] LoginModel login)
         {
-            var token = _adminRepository.Autheticate(login.Email, login.Password);
+            var tokenDictionary = _adminRepository.Autheticate(login.Email, login.Password);
 
-            if(token == null)
+            #pragma warning disable CS8602 // Dereference of a possibly null reference.
+            if (tokenDictionary.ContainsKey("token") == false)
             {
                 return Unauthorized();
             }
+            #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
-            return Ok(new {token, login});
+            var token = tokenDictionary["token"];
+            var expires = tokenDictionary["expires"];
+
+            return Ok(new {token, expires, login});
         }
 
     }
