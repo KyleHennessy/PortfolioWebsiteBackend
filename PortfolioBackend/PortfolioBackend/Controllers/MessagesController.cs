@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioBackend.Models;
 using PortfolioBackend.Services.Interfaces;
 
@@ -6,6 +7,7 @@ using PortfolioBackend.Services.Interfaces;
 
 namespace PortfolioBackend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MessagesController : ControllerBase
@@ -38,6 +40,7 @@ namespace PortfolioBackend.Controllers
         }
 
         // POST api/<MessagesController>
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult<Message> Post([FromBody] Message message)
         {
