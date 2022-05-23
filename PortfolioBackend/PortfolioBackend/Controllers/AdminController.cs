@@ -41,12 +41,11 @@ namespace PortfolioBackend.Controllers
         {
             var tokenDictionary = _adminRepository.Autheticate(login.Email, login.Password);
 
-            #pragma warning disable CS8602 // Dereference of a possibly null reference.
-            if (tokenDictionary.ContainsKey("token") == false)
+            
+            if (tokenDictionary == null || tokenDictionary.ContainsKey("token") == false)
             {
                 return Unauthorized();
             }
-            #pragma warning restore CS8602 // Dereference of a possibly null reference.
 
             var token = tokenDictionary["token"];
             var expires = tokenDictionary["expires"];

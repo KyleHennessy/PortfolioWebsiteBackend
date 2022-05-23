@@ -14,5 +14,8 @@ namespace PortfolioBackend.Models
 
         [BsonElement("password")]
         public string Password { get; set; } = string.Empty;
+
+        [BsonElement("salt")]
+        public string Salt { get; set; } = Guid.NewGuid().ToString();
     }
 }

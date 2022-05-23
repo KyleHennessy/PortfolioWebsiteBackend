@@ -17,7 +17,7 @@ namespace PortfolioBackend.Models
 
         [BsonElement("email")]
         [Required(ErrorMessage = "Please write your email")]
-        [EmailAddress]
+        [StringLength(320, ErrorMessage ="Email address is too large")]
         public string Email { get; set; } = string.Empty;
 
         [BsonElement("messageText")]

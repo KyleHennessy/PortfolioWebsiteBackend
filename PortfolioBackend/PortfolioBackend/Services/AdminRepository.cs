@@ -1,10 +1,12 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 using PortfolioBackend.Models;
 using PortfolioBackend.Models.Interfaces;
 using PortfolioBackend.Services.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace PortfolioBackend.Services
@@ -29,7 +31,24 @@ namespace PortfolioBackend.Services
 
         public Dictionary<string, string>? Autheticate(string? email, string? password)
         {
-            var admin = _admin.Find(admin => admin.Email == email && admin.Password == password).FirstOrDefault();
+            if (email == null || password == null)
+            {
+                return null;
+            }
+            var retrievedSalt = _admin.Find(admin => admin.Email == email).FirstOrDefault().Salt;
+            if (retrievedSalt == null)
+            {
+                return null;
+            }
+
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+               password: password,
+               salt: Encoding.ASCII.GetBytes(retrievedSalt),
+               prf: KeyDerivationPrf.HMACSHA256,
+               iterationCount: 100000,
+               numBytesRequested: 256 / 8));
+
+            var admin = _admin.Find(admin => admin.Email == email && admin.Password == hashed).FirstOrDefault();
 
             if (admin == null)
             {
