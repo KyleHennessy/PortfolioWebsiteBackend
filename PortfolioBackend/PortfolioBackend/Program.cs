@@ -37,7 +37,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors();
+builder.Services.AddCors(options => 
+{
+    options.AddDefaultPolicy(policy =>
+                      {
+                          policy.WithOrigins("https://kylehennessy.azurewebsites.net", "http://localhost:3000")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      }
+                    );
+});
 
 
 builder.Services.AddAuthentication(options =>
@@ -60,12 +69,7 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-app.UseCors(x => x
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-                    .SetIsOriginAllowed(origin => true) // allow any origin
-                                                        //.WithOrigins("https://localhost:3000")); // Allow only this origin can also have multiple origins separated with comma
-                    .AllowCredentials()); // allow credentials
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
