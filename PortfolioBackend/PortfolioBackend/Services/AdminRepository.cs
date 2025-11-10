@@ -35,7 +35,7 @@ namespace PortfolioBackend.Services
             {
                 return null;
             }
-            var retrievedSalt = _admin.Find(admin => admin.Email == email).FirstOrDefault().Salt;
+            var retrievedSalt = _admin.Find(admin => admin.Email == email).FirstOrDefault()?.Salt;
             if (retrievedSalt == null)
             {
                 return null;
