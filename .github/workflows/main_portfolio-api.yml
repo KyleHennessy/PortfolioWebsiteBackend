@@ -26,6 +26,9 @@ jobs:
       - name: Change Directory
         run: cd PortfolioBackend
 
+      - name: List files
+        run: ls
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
