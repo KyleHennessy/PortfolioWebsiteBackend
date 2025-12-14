@@ -59,7 +59,6 @@ namespace PortfolioBackend.Services
 
             var tokenKey = Encoding.ASCII.GetBytes(key);
 
-            #pragma warning disable CS8604 // Possible null reference argument.
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -67,23 +66,20 @@ namespace PortfolioBackend.Services
                     new Claim(ClaimTypes.Email, email)
                 }),
 
-                Expires = DateTime.Now.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(10),
 
                 SigningCredentials = new SigningCredentials (
                         new SymmetricSecurityKey(tokenKey),
                         SecurityAlgorithms.HmacSha256Signature
                     )
             };
-            #pragma warning restore CS8604 // Possible null reference argument.
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             DateTime expires = (DateTime)tokenDescriptor.Expires;
 
             Dictionary<string, string> result = new Dictionary<string, string>();
             result.Add("token", tokenHandler.WriteToken(token));
-            #pragma warning disable CS8604 // Possible null reference argument.
             result.Add("expires", expires.ToString("yyyy-MM-ddTHH:mm:ss"));
-            #pragma warning restore CS8604 // Possible null reference argument.
 
             return result;
         }
