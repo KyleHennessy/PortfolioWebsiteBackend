@@ -9,6 +9,10 @@ on:
       - main
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: PortfolioBackend
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,9 +26,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.x'
-
-      - name: Change Directory
-        run: cd PortfolioBackend
 
       - name: List files
         run: ls
