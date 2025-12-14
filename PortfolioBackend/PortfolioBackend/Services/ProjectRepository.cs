@@ -28,7 +28,7 @@ namespace PortfolioBackend.Services
 
         public List<Project> Get()
         {
-            return _projects.Find(project => true).ToList();
+            return _projects.Find(project => true).SortByDescending(x => x.Id).ToList();
         }
 
         public Project Get(string id)
