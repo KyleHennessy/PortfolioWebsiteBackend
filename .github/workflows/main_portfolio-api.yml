@@ -23,8 +23,8 @@ jobs:
         with:
           dotnet-version: '9.x'
 
-      - name: List files
-        run: ls
+      - name: Change Directory
+        run: cd PortfolioBackend
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
