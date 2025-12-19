@@ -66,7 +66,7 @@ namespace PortfolioBackend.Services
                     new Claim(ClaimTypes.Email, email)
                 }),
 
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(60),
 
                 SigningCredentials = new SigningCredentials (
                         new SymmetricSecurityKey(tokenKey),
