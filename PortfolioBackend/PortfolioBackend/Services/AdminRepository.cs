@@ -79,7 +79,7 @@ namespace PortfolioBackend.Services
 
             Dictionary<string, string> result = new Dictionary<string, string>();
             result.Add("token", tokenHandler.WriteToken(token));
-            result.Add("expires", expires.ToString("yyyy-MM-ddTHH:mm:ss"));
+            result.Add("expires", expires.ToString("yyyy-MM-ddZHH:mm:ss"));
 
             return result;
         }
