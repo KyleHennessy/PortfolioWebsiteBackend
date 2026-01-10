@@ -41,6 +41,9 @@ namespace PortfolioBackend.Models
         [Required]
         public string SourceCodeUrl { get; set; } = string.Empty;
 
+        [BsonElement("liveSiteUrl")]
+        public string LiveSiteUrl { get; set; } = string.Empty;
+
         [Required]
         public List<Skill> SkillsUsed { get; set; } = new List<Skill>();
 
